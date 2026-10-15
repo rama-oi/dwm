@@ -45,13 +45,13 @@ static const float mfact          = 0.55;
 static const int nmaster           = 1;
 static const int resizehints       = 0;
 static const int lockfullscreen    = 1;
-static const int refreshrate       = 120;  /* refresh rate (per second) for client move/resize */
+static const int refreshrate       = 120;
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
-    { "[]=",      tile },
-    { "><>",      NULL },
-    { "[M]",      monocle },
+    { "[T]",      tile },
+    // { "><>",      NULL },
+    // { "[M]",      monocle },
 };
 
 /* Applications */
@@ -136,7 +136,7 @@ static const Key keys[] = {
 static const Button buttons[] = {
     /* Click       Event mask      Button          Function        Argument */
     { ClkLtSymbol, 0,              Button1,        setlayout,      {0} },
-    { ClkLtSymbol, 0,              Button3,        setlayout,      {.v = &layouts[2]} },
+    { ClkLtSymbol, 0,              Button3,        setlayout,      {.v = &layouts[0]} },
     { ClkWinTitle, 0,              Button2,        zoom,           {0} },
     { ClkClientWin, MODKEY,        Button1,        movemouse,      {0} },
     { ClkClientWin, MODKEY,        Button2,        togglefloating, {0} },
