@@ -11,7 +11,7 @@
 static const unsigned int borderpx  = 1;
 static const unsigned int snap      = 16;
 static const int showbar            = 1;
-static const int topbar             = 0;
+static const int topbar             = 1;
 static const char *fonts[]          = {
     "DejaVu Sans Mono:size=9"
 };
@@ -28,7 +28,8 @@ static const char *colors[][3]      = {
     [SchemeSel]  = { col_gray4, col_gray2, col_cyan  },
 };
 
-static const unsigned int gappx    = 4;
+static const unsigned int gappi    = 8;  /* gap between windows */
+static const unsigned int gappo    = 4;  /* gap around the screen edge */
 
 /* Tags / workspaces */
 static const char *tags[] = {
@@ -72,9 +73,9 @@ static const char *termcmd[] = {
     "st", NULL
 };
 
-static const char *coquicmd[] = {
-    "rama-coqui-launch", NULL
-};
+// static const char *coquicmd[] = {
+//     "rama-coqui-launch", NULL
+// };
 
 static const char *powercmd[] = {
     "rama-power-menu", NULL
@@ -93,9 +94,9 @@ static const char *powercmd[] = {
 static const Key keys[] = {
     /* Modifier       Key          Function        Argument */
 
+    // { MODKEY,         XK_space,    spawn,          {.v = coquicmd} },
     { MODKEY,         XK_z,        spawn,          {.v = termcmd} },
-    { MODKEY,         XK_space,    spawn,          {.v = coquicmd} },
-    { MODKEY,         XK_d,        spawn,          {.v = dmenucmd} },
+    { MODKEY,         XK_space,        spawn,          {.v = dmenucmd} },
     { MODKEY,         XK_x,        killclient,     {0} },
 
     { MODKEY|ShiftMask, XK_e,      spawn,          {.v = powercmd} },

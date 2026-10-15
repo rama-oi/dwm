@@ -1122,7 +1122,8 @@ monocle(Monitor *m)
 	if (n > 0) /* override layout symbol */
 		snprintf(m->ltsymbol, sizeof m->ltsymbol, "[%d]", n);
 	for (c = nexttiled(m->clients); c; c = nexttiled(c->next))
-		resize(c, m->wx, m->wy, m->ww - 2 * c->bw, m->wh - 2 * c->bw, 0);
+		resize(c, m->wx + gappo, m->wy + gappo,
+			m->ww - 2 * gappo - 2 * c->bw, m->wh - 2 * gappo - 2 * c->bw, 0);
 }
 
 void
@@ -1687,28 +1688,31 @@ tagmon(const Arg *arg)
 void
 tile(Monitor *m)
 {
-	unsigned int i, n, h, mw, my, ty;
+	unsigned int i, n, h, mw, my, ty, sx, sw, nm;
+	unsigned int W = m->ww - 2 * gappo, H = m->wh - 2 * gappo;
+	unsigned int x0 = m->wx + gappo, y0 = m->wy + gappo;
 	Client *c;
 
 	for (n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
 	if (n == 0)
 		return;
 
+	nm = MIN(n, m->nmaster);
 	if (n > m->nmaster)
-		mw = m->nmaster ? m->ww * m->mfact : 0;
+		mw = m->nmaster ? (W - gappi) * m->mfact : 0;
 	else
-		mw = m->ww;
+		mw = W;
+	sx = x0 + mw + (mw ? gappi : 0);
+	sw = W - mw - (mw ? gappi : 0);
 	for (i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if (i < m->nmaster) {
-			h = (m->wh - my) / (MIN(n, m->nmaster) - i);
-			resize(c, m->wx, m->wy + my, mw - (2*c->bw), h - (2*c->bw), 0);
-			if (my + HEIGHT(c) < m->wh)
-				my += HEIGHT(c);
+			h = (H - my - gappi * (nm - i - 1)) / (nm - i);
+			resize(c, x0, y0 + my, mw - (2*c->bw), h - (2*c->bw), 0);
+			my += HEIGHT(c) + gappi;
 		} else {
-			h = (m->wh - ty) / (n - i);
-			resize(c, m->wx + mw, m->wy + ty, m->ww - mw - (2*c->bw), h - (2*c->bw), 0);
-			if (ty + HEIGHT(c) < m->wh)
-				ty += HEIGHT(c);
+			h = (H - ty - gappi * (n - i - 1)) / (n - i);
+			resize(c, sx, y0 + ty, sw - (2*c->bw), h - (2*c->bw), 0);
+			ty += HEIGHT(c) + gappi;
 		}
 }
 
@@ -2006,7 +2010,7 @@ void
 updatestatus(void)
 {
 	if (!gettextprop(root, XA_WM_NAME, stext, sizeof(stext)))
-		strcpy(stext, "dwm-"VERSION);
+		stext[0] = '\0'; /* empty until xsetroot sets a status */
 	drawbar(selmon);
 }
 
