@@ -37,7 +37,7 @@ static const char *tags[] = {
 
 static const Rule rules[] = {
     /* class      instance    title       tags mask     isfloating   monitor */
-    { NULL,       NULL,       NULL,       0,            0,           -1 },
+    { "floating-terminal", NULL, NULL,    0,            1,           -1 },
 };
 
 /* Layouts */
@@ -45,7 +45,7 @@ static const float mfact          = 0.55;
 static const int nmaster           = 1;
 static const int resizehints       = 0;
 static const int lockfullscreen    = 1;
-static const int refreshrate = 120;  /* refresh rate (per second) for client move/resize */
+static const int refreshrate       = 120;  /* refresh rate (per second) for client move/resize */
 
 static const Layout layouts[] = {
     /* symbol     arrange function */
@@ -69,7 +69,7 @@ static const char *dmenucmd[] = {
 };
 
 static const char *termcmd[] = {
-    "xterm", NULL
+    "st", NULL
 };
 
 static const char *coquicmd[] = {
