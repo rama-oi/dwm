@@ -93,13 +93,13 @@ static const char *powercmd[] = {
 static const Key keys[] = {
     /* Modifier       Key          Function        Argument */
 
-    { MODKEY,         XK_Return,   spawn,          {.v = termcmd} },
+    { MODKEY,         XK_z,        spawn,          {.v = termcmd} },
     { MODKEY,         XK_space,    spawn,          {.v = coquicmd} },
     { MODKEY,         XK_d,        spawn,          {.v = dmenucmd} },
+    { MODKEY,         XK_x,        killclient,     {0} },
 
     { MODKEY|ShiftMask, XK_e,      spawn,          {.v = powercmd} },
 
-    { MODKEY|ShiftMask, XK_q,      killclient,     {0} },
 
     /* Focus windows */
     { MODKEY,         XK_j,        focusstack,     {.i = +1} },
@@ -108,10 +108,10 @@ static const Key keys[] = {
     { MODKEY,         XK_l,        setmfact,       {.f = +0.05} },
 
     /* Layout control */
+    // { MODKEY,         XK_f,        setlayout,      {.v = &layouts[1]} },
+    // { MODKEY,         XK_m,        setlayout,      {.v = &layouts[2]} },
+    // { MODKEY,         XK_Tab,      view,           {0} },
     { MODKEY,         XK_t,        setlayout,      {.v = &layouts[0]} },
-    { MODKEY,         XK_f,        setlayout,      {.v = &layouts[1]} },
-    { MODKEY,         XK_m,        setlayout,      {.v = &layouts[2]} },
-    { MODKEY,         XK_Tab,      view,           {0} },
     { MODKEY,         XK_b,        togglebar,      {0} },
 
     /* Master / stack */
